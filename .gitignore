@@ -1,0 +1,80 @@
+# Visual Studio temporary files, build results, and
+# build directories
+.vscode/
+.vs/
+.vscode/*
+.vs/*
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+*.sln.docstates
+*.pdb
+*.dbmdl
+
+# Directories for build results
+bin/
+obj/
+debug/
+release/
+publish/
+
+# Distribution directories
+dist/
+dists/
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# ASP.NET Scaffolding files
+.scaffolding/
+
+# ASP.NET temporary files
+tmp/
+temp/
+
+# Entity Framework Migrations
+Migrations/
+
+# Log files
+*.log
+
+# User Secrets
+**/secrets.json
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+
+# Project lock files
+project.lock.json
+project.fragment.lock.json
+
+# IDE config files
+.idea/
+*.sln.ide
+
+# Database files
+*.mdf
+*.ldf
+*.sql
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Certificate Stores
+.vscode/settings.json
+
+# Windows crash logs
+*.stackdump
