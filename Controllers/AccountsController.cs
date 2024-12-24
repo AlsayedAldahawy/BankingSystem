@@ -31,7 +31,7 @@ namespace BankingSystem.Controllers
                 return NotFound();
 
             account.Balance += amount;
-            _context.Transactions.Add(new Transaction
+            _context.Transactions.Add(new Transaction("Deposit")
             {
                 AccountId = account.Id,
                 Amount = amount,
@@ -67,7 +67,7 @@ namespace BankingSystem.Controllers
                 savingsAccount.Balance -= amount;
             }
 
-            _context.Transactions.Add(new Transaction
+            _context.Transactions.Add(new Transaction("Withdrawal")
             {
                 AccountId = account.Id,
                 Amount = amount,
@@ -95,7 +95,7 @@ namespace BankingSystem.Controllers
             sourceAccount.Balance -= amount;
             targetAccount.Balance += amount;
 
-            _context.Transactions.Add(new Transaction
+            _context.Transactions.Add(new Transaction("Transfer Out")
             {
                 AccountId = sourceAccount.Id,
                 Amount = amount,
@@ -103,7 +103,7 @@ namespace BankingSystem.Controllers
                 Timestamp = DateTime.Now
             });
 
-            _context.Transactions.Add(new Transaction
+            _context.Transactions.Add(new Transaction("Transfer In")
             {
                 AccountId = targetAccount.Id,
                 Amount = amount,

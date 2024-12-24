@@ -25,7 +25,7 @@ namespace BankingSystem.Utilities
                     break;
             };
 
-            return $"{prefix}-{counter++}"; 
+            return $"{prefix}{counter++}"; 
         }
     }
 }

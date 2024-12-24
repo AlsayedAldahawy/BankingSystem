@@ -4,7 +4,7 @@ namespace BankingSystem.Models
 {
     public class Transaction
     {
-        public string Id { get; set; }
+        public string? Id { get; set; }
         
         // ID of the account sending the transaction
         public int AccountId { get; set; }
@@ -18,8 +18,13 @@ namespace BankingSystem.Models
         // Timestamp of the transaction
         public DateTime Timestamp { get; set; }
 
-        public Transaction()
+        // Parameterless constructor for EF Core 
+        public Transaction() { } 
+        
+        // Constructor with parameters
+        public Transaction(string trsType="")
         {
+            TransactionType = trsType;
             Id = TransactionIdGenerator.GenerateTransactionId(TransactionType);
             
         }
