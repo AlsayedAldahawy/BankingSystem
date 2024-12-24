@@ -92,7 +92,7 @@ namespace BankingSystem.Data
             modelBuilder.Entity<Transaction>().HasData(
                 new Transaction
                 {
-                    Id = 1,
+                    Id = "DEP999",
                     AccountId = 1,
                     TransactionType = "Deposit",
                     Amount = 500.00m,
@@ -100,7 +100,7 @@ namespace BankingSystem.Data
                 },
                 new Transaction
                 {
-                    Id = 2,
+                    Id = "WTH548",
                     AccountId = 3,
                     TransactionType = "Withdrawal",
                     Amount = 200.00m,
