@@ -27,23 +27,12 @@
                 <td>@account.AccountType</td>
                 <td>
                     <!-- Deposit Form -->
-                    <form asp-action="Deposit" method="post">
-                        <input type="hidden" name="accountId" value="@account.Id" />
-                        <input type="number" name="amount" placeholder="Amount" step="0.01" required />
-                        <button type="submit" class="btn btn-primary">Deposit</button>
-                    </form>
-
-                    <!-- Withdraw Form -->
-                    <form asp-action="Withdraw" method="post">
-                        <input type="hidden" name="accountId" value="@account.Id" />
-                        <input type="number" name="amount" placeholder="Amount" step="0.01" required />
-                        <button type="submit" class="btn btn-primary">Withdraw</button>
-                    </form>
-
-                    <!-- Balance Check -->
-                    <form asp-action="GetBalance" method="get">
-                        <input type="hidden" name="accountId" value="@account.Id" />
-                        <button type="submit" class="btn btn-info">Check Balance</button>
+                    <a href="@Url.Action("Deposit", "Accounts", new { accountId = account.Id })" class="btn btn-primary">Deposit</a> 
+                    <a href="@Url.Action("Withdraw", "Accounts", new { accountId = account.Id })" class="btn btn-warning">Withdraw</a> 
+                    <a href="@Url.Action("Transfer", "Accounts", new { accountId = account.Id })" class="btn btn-info">Transfer</a> 
+                    <form asp-action="DeleteAccount" asp-controller="Accounts" method="post" style="display:inline;"> 
+                        <input type="hidden" name="accountId" value="@account.Id" /> 
+                        <button type="submit" class="btn btn-danger">Delete</button> 
                     </form>
                 </td>
             </tr>

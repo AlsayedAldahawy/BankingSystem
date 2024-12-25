@@ -93,7 +93,8 @@ namespace BankingSystem.Data
                 new Transaction
                 {
                     Id = "DEP999",
-                    AccountId = 1,
+                    SenderAccountId = 1,
+                    RecieverAccountId = 2,
                     TransactionType = "Deposit",
                     Amount = 500.00m,
                     Timestamp = DateTime.Now
@@ -101,7 +102,8 @@ namespace BankingSystem.Data
                 new Transaction
                 {
                     Id = "WTH548",
-                    AccountId = 3,
+                    SenderAccountId = 3,
+                    RecieverAccountId = 2,
                     TransactionType = "Withdrawal",
                     Amount = 200.00m,
                     Timestamp = DateTime.Now
