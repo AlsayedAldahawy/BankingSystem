@@ -7,26 +7,26 @@ using BankingSystem.Models;
 
 namespace BankingSystem.Controllers
 {
-    public class AccsController : Controller
+    public class TranssController : Controller
     {
         private readonly HttpClient _httpClient;
 
-        public AccsController(HttpClient httpClient)
+        public TranssController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
         public async Task<IActionResult> Index()
         {
-            var response = await _httpClient.GetStringAsync("http://localhost:5195/api/accounts");
-            var transactions = JsonConvert.DeserializeObject<List<AccountViewModel>>(response);
+            var response = await _httpClient.GetStringAsync("http://localhost:5195/api/transactions");
+            var transactions = JsonConvert.DeserializeObject<List<TransactionViewModel>>(response);
             return View(transactions);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var response = await _httpClient.DeleteAsync($"http://localhost:5195/api/accounts/{id}");
+            var response = await _httpClient.DeleteAsync($"http://localhost:5195/api/transactions/{id}");
             return RedirectToAction("Index");
         }
     }
