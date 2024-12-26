@@ -75,10 +75,12 @@ curl -X POST https://localhost:7095/api/accounts/deposit \
         "amount": 100.0
     }'
 
+ ```
 
 
 ### Project Hierarchy
 ```
+
 📦 
 ├─ .gitignore
 ├─ BankingSystem.csproj
