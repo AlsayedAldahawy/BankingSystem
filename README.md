@@ -43,8 +43,17 @@ This solution was developed to fulfill an entry-level task required by Paysky as
     dotnet run
     ```
 
-### Usage
 
+### Screenshots
+
+Here are some screenshots demonstrating the application: 
+
+#### Swagger Page: 
+
+![Swagger](assets/screenshot1.png)
+
+### Usage
+- Navigate to `https://localhost:7095/` to access the Swagger Documentation.
 - Navigate to `https://localhost:7095/api/accounts` to access the Accounts API.
 - Navigate to `https://localhost:7095/api/transactions` to access the Transactions API.
 
