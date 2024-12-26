@@ -2,7 +2,10 @@
 # Banking System 
 
 A simple banking system application built with ASP.NET Core and Entity Framework Core. This project demonstrates the use of inheritance, database operations, and persistent ID generation.
-This solution was developed to fulfill an entry-level task required by Paysky as part of their job application process.## Installation
+
+This solution was developed to fulfill an entry-level task required by Paysky as part of their job application process.
+
+## Installation
 
 ### Prerequisites
 
@@ -50,7 +53,9 @@ Here are some screenshots demonstrating the application:
 
 #### Swagger Page: 
 
-![Swagger](assets/screenshot1.png)
+![Swagger](assets/s1.png)
+![Swagger](assets/s2.png)
+
 
 ### Usage
 - Navigate to `https://localhost:7095/` to access the Swagger Documentation.
