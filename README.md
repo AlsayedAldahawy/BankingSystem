@@ -1,4 +1,4 @@
-
+﻿
 # Banking System 
 
 A simple banking system application built with ASP.NET Core and Entity Framework Core. This project demonstrates the use of inheritance, database operations, and persistent ID generation.
@@ -58,6 +58,8 @@ Here are some screenshots demonstrating the application:
 
 
 ### Usage
+** Note: 
+if the https Urls didn't work for any reason, please use http://localhost:5195 instead.
 - Navigate to `https://localhost:7095/` to access the Swagger Documentation.
 - Navigate to `https://localhost:7095/api/accounts` to access the Accounts API.
 - Navigate to `https://localhost:7095/api/transactions` to access the Transactions API.
@@ -66,9 +68,82 @@ Here are some screenshots demonstrating the application:
 
 #### Deposit
 ```bash
-curl -X POST https://localhost:5001/api/accounts/deposit \
+curl -X POST https://localhost:7095/api/accounts/deposit \
     -H "Content-Type: application/json" \
     -d '{   
         "accountId": 123,
         "amount": 100.0
     }'
+
+
+
+### Project Hierarchy
+```
+📦 
+├─ .gitignore
+├─ BankingSystem.csproj
+├─ BankingSystem.sln
+├─ Controllers
+│  ├─ AccountsController.cs
+│  ├─ HomeController.cs
+│  ├─ TransactionsController.cs
+│  └─ accounts.cs
+├─ Data
+│  └─ AppDbContext.cs
+├─ Dtos
+│  ├─ AccountDto.cs
+│  ├─ DepositDto.cs
+│  ├─ TransactionDto.cs
+│  └─ TransferDto.cs
+├─ Models
+│  ├─ Account.cs
+│  ├─ CheckingAccounts.cs
+│  ├─ ErrorViewModel.cs
+│  ├─ SavingsAccounts.cs
+│  └─ Transaction.cs
+├─ Program.cs
+├─ Properties
+│  └─ launchSettings.json
+├─ README.md
+├─ Utilities
+│  ├─ AccountNumberGenerator.cs
+│  ├─ IdStorage.cs
+│  ├─ TransactionIdGenerator.cs
+│  └─ savedData.json
+├─ Views
+│  ├─ Accounts
+│  │  └─ Index.cshtml
+│  ├─ Home
+│  │  └─ Index.cshtml
+│  ├─ Shared
+│  │  ├─ Error.cshtml
+│  │  ├─ _Layout.cshtml
+│  │  ├─ _Layout.cshtml.css
+│  │  └─ _ValidationScriptsPartial.cshtml
+│  ├─ Transactions
+│  │  └─ index.cshtml
+│  ├─ _ViewImports.cshtml
+│  └─ _ViewStart.cshtml
+├─ appsettings.Development.json
+├─ appsettings.json
+├─ assets
+│  ├─ s1.png
+│  └─ s2.png
+└─ wwwroot
+   ├─ css
+   │  └─ site.css
+   ├─ favicon.ico
+   ├─ js
+   │  └─ site.js
+   └─ lib
+      ├─ bootstrap
+      │  └─ LICENSE
+      ├─ jquery-validation-unobtrusive
+      │  ├─ LICENSE.txt
+      │  ├─ jquery.validate.unobtrusive.js
+      │  └─ jquery.validate.unobtrusive.min.js
+      ├─ jquery-validation
+      │  └─ LICENSE.md
+      └─ jquery
+         └─ LICENSE.txt
+```
