@@ -7,7 +7,7 @@ namespace BankingSystem.Utilities
             
             switch (TransactionType)
             {
-                case "Withdrawal": 
+                case "Withdraw": 
                     prefix = "WTH";
                     break;
                 case "Deposit":

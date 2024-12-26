@@ -28,6 +28,12 @@ namespace BankingSystem.Data
                 .HasValue<CheckingAccount>("Checking Account")
                 .HasValue<SavingsAccount>("Savings Account");
 
+            modelBuilder.Entity<Transaction>()
+                .HasDiscriminator<string>("TransactionType")
+                .HasValue<Deposit>("Deposit")
+                .HasValue<Withdraw>("Withdraw")
+                .HasValue<Transfer>("Transfer");
+
             modelBuilder.Entity<Account>()
                 .Property(a => a.Balance)
                 .HasColumnType("decimal(18,2)");
@@ -39,6 +45,10 @@ namespace BankingSystem.Data
             modelBuilder.Entity<SavingsAccount>()
                 .Property(sa => sa.InterestRate)
                 .HasColumnType("decimal(5,2)");
+
+            modelBuilder.Entity<Transfer>()
+                .Property(sa => sa.RecieverAccountId)
+                .HasColumnType("int");
 
             modelBuilder.Entity<Transaction>()
                 .Property(t => t.Amount)
@@ -88,27 +98,73 @@ namespace BankingSystem.Data
                 }
             );
 
-            // Seed data for Transaction
-            modelBuilder.Entity<Transaction>().HasData(
-                new Transaction
+            // Seed data for Transfer
+            modelBuilder.Entity<Transfer>().HasData(
+                new Transfer
                 {
-                    Id = "DEP999",
-                    SenderAccountId = 1,
+                    Id= 1,
+                    AccountId = 1,
+                    TransCode = "TRN1550",
                     RecieverAccountId = 2,
                     TransactionType = "Deposit",
                     Amount = 500.00m,
                     Timestamp = DateTime.Now
                 },
-                new Transaction
+                new Transfer
                 {
-                    Id = "WTH548",
-                    SenderAccountId = 3,
+                    Id= 2,
+                    AccountId= 3,
+                    TransCode = "TRN1555",
                     RecieverAccountId = 2,
                     TransactionType = "Withdrawal",
                     Amount = 200.00m,
                     Timestamp = DateTime.Now
                 }
-            );
+                );
+
+            // Seed data for Deposit
+            modelBuilder.Entity<Deposit>().HasData(
+                new Deposit
+                {
+                    Id = 3,
+                    TransCode = "DPO1550",
+                    AccountId = 1,
+                    TransactionType = "Deposit",
+                    Amount = 500.00m,
+                    Timestamp = DateTime.Now
+                },
+                new Deposit
+                {
+                    Id = 4,
+                    TransCode = "DPO1555",
+                    AccountId= 2,
+                    TransactionType = "Deposit",
+                    Amount = 200.00m,
+                    Timestamp = DateTime.Now
+                }
+                );
+
+            // Seed data for Deposit
+            modelBuilder.Entity<Withdraw>().HasData(
+                new Withdraw
+                {
+                    Id= 5,
+                    TransCode = "WTH1550",
+                    AccountId = 1,
+                    TransactionType = "Withdraw",
+                    Amount = 500.00m,
+                    Timestamp = DateTime.Now
+                },
+                new Withdraw
+                {
+                    Id = 6,
+                    TransCode = "WTH1555",
+                    AccountId = 2,
+                    TransactionType = "Withdraw",
+                    Amount = 200.00m,
+                    Timestamp = DateTime.Now
+                }
+                );
 
             base.OnModelCreating(modelBuilder);
         }

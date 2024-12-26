@@ -40,25 +40,24 @@ namespace BankingSystem.Controllers
 
 
          //* GET api/transaction/{id}  -- GetByIdAsync
-        [HttpGet("{tid}")]
-        public async Task<IActionResult> GetByIdAsync(string tid) 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(int id) 
         {
             var transaction = await _context.Transactions
-                .SingleOrDefaultAsync(t => t.Id == tid); 
+                .SingleOrDefaultAsync(t => t.Id == id); 
 
             if (transaction == null) 
-                return NotFound($"There's no Transaction with id: {tid}"); 
+                return NotFound($"There's no Transaction with id: {id}"); 
 
             return Ok(transaction);
         }
 
-        //* GET api/transactions/GetByAccountId?accountId={ id }  -- GetByAccountAsync
+        //* GET api/transactions/GetByAccountId? accountId = { id }  -- GetByAccountAsync
         [HttpGet("GetByAccountId")]
-        public async Task<IActionResult> GetByAccountAsync([FromQuery]int accountId)
+        public async Task<IActionResult> GetByAccountAsync([FromQuery] int accountId)
         {
             var transactions = await _context.Transactions
-                .Where(t => t.SenderAccountId == accountId || t.RecieverAccountId == accountId)
-                .OrderByDescending(t => t.Timestamp).ToListAsync();
+                .Where(t => t.AccountId == accountId).OrderByDescending(t => t.Timestamp).ToListAsync();
 
             if (transactions == null || transactions.Count == 0)
                 return NotFound($"No Transactions with this Account id: {accountId}");
@@ -82,12 +81,12 @@ namespace BankingSystem.Controllers
         }
 
         ////* POST api/transactions[FromBody] -- AddAsync
-        ///delayed untill I implement deposit, withdraw, transfeer apis of the accounts
+        ///delayed untill I implement deposit, withdraw, transfer apis of the accounts
         //[HttpPost]
         //public async Task<IActionResult> AddTransactionAsync(TransactionDto dto)
         //{
         //    if (dto.Amount < 0)
-        //        return BadRequest("Amount of Transfeer can not be negative number");
+        //        return BadRequest("Amount of Transfer can not be negative number");
 
         //    if (dto.SenderAccountId == dto.RecieverAccountId)
         //        return BadRequest("Sender ID and Reciever Id can't be the same");
@@ -140,14 +139,14 @@ namespace BankingSystem.Controllers
         //}
 
         //  * DELETE api/transactions/{id}      -- DeleteAsync
-        [HttpDelete("{tid}")]
-        public async Task<IActionResult> DeleteTransactionAsync(string tid)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTransactionAsync(int id)
         {
             var transaction = await _context.Transactions
-                .SingleOrDefaultAsync(t => t.Id == tid);
+                .SingleOrDefaultAsync(t => t.Id == id);
 
             if (transaction == null)
-               return NotFound($"There's no Transaction with id: {tid}");
+                return NotFound($"There's no Transaction with id: {id}");
 
             _context.Transactions.Remove(transaction);
             _context.SaveChanges();

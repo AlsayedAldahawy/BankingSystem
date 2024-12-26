@@ -18,5 +18,23 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin-bottom: 10px;
+  height: 100%;
 }
+
+main{
+    height:100%
+}
+
+.swagger{
+    position:absolute;
+    left:0;
+    top:50px;
+    width:100%;
+    height:90%
+}
+
+/*header{
+    position: fixed;
+    top: 0px;
+}*/
