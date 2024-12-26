@@ -1,0 +1,80 @@
+﻿@model IEnumerable<AccountViewModel>
+@{
+    ViewData["Title"] = "Accounts";
+}
+
+<h2>Accounts</h2>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Account Number</th>
+            <th>Account Holder Name</th>
+            <th>Balance</th>
+            <th>Account Type</th>
+            <th>Overdraft Limit</th>
+            <th>Interest Rate</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var account in Model)
+        {
+            <tr>
+                <td>@account.Id</td>
+                <td>@account.AccountNumber</td>
+                <td>@account.AccountHolderName</td>
+                <td>@account.Balance</td>
+                <td>@account.AccountType</td>
+                <td>@account.OverdraftLimit</td>
+                <td>@account.InterestRate</td>
+                <td>
+                    <button class="btn btn-danger" onclick="deleteAccount(@account.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+
+        const url = "http://localhost:5195";
+        const surl = "https://localhost:7095";
+        // Function to delete account
+        async function deleteAccount(accountId) {
+            const response = await fetch(`https://localhost:7095/api/delete/${accountId}`, {
+                method: 'DELETE'
+            });
+            if (response.ok) {
+                location.reload(); // Reload the page to see changes
+            } else {
+
+                alert('Failed to delete account');
+            }
+        }
+
+        // Form submission event for adding new account
+        document.getElementById('addAccountForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('https://localhost:7095/api/accounts', {
+                method: 'POST',
+                body: formData
+            });
+            if (response.ok) {
+                location.reload();
+            } else {
+                response = await fetch('http://localhost:5195/api/accounts', {
+                method: 'POST',
+                body: formData
+            });
+                if (response.ok)
+                    location.reload();
+                else alert('Failed to add account');
+            }
+        });
+    </script>
+}

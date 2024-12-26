@@ -140,7 +140,7 @@ namespace BankingSystem.Controllers
         }
 
         //Deposit money into an account
-        [HttpPost("deposit")]
+        [HttpPut("deposit")]
         public async Task<IActionResult> Deposit([FromBody] DepositDTO dto)
         {
             if (dto.Amount < 0)
@@ -168,7 +168,7 @@ namespace BankingSystem.Controllers
         }
 
         //Withdraw money from an account
-        [HttpPost("withdraw")]
+        [HttpPut("withdraw")]
         public async Task<IActionResult> Withdraw([FromBody] DepositDTO dto)
         {
             if (dto.Amount < 0)
@@ -211,7 +211,7 @@ namespace BankingSystem.Controllers
 
 
         //Transfer money between two accounts
-        [HttpPost("transfer")]
+        [HttpPut("transfer")]
         public async Task<IActionResult> Transfer([FromBody] TransferDto dto)
         {
             if (dto.Amount < 0)
