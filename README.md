@@ -16,8 +16,8 @@ This solution was developed to fulfill an entry-level task required by Paysky as
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/alsayedaldahawy/bankingsystem.git
-    cd bankingsystem
+    git clone https://github.com/alsayedaldahawy/BankingSystem.git
+    cd BankingSystem
     ```
 
 2. **Configure the database connection string**:

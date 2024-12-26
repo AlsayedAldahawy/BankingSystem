@@ -11,14 +11,14 @@ namespace BankingSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsAPIsController : ControllerBase
+    public class AccountsController : ControllerBase
     {
 
 
         private readonly AppDbContext _context;
 
 
-        public AccountsAPIsController(AppDbContext context)
+        public AccountsController(AppDbContext context)
         {
             _context = context;
         }
