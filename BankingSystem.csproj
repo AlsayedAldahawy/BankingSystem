@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Screenshots\" />
+    <Folder Include="assets\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
