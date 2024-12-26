@@ -116,7 +116,7 @@ namespace BankingSystem.Data
                     AccountId= 3,
                     TransCode = "TRN1555",
                     RecieverAccountId = 2,
-                    TransactionType = "Withdrawal",
+                    TransactionType = "Withdraw",
                     Amount = 200.00m,
                     Timestamp = DateTime.Now
                 }
