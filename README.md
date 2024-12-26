@@ -56,6 +56,12 @@ Here are some screenshots demonstrating the application:
 ![Swagger](assets/s1.png)
 ![Swagger](assets/s2.png)
 
+#### Accounts and Transaction Pages:
+** Still under Construction (Frontend)
+
+![Transactions](assets/s3.png)
+![Accounts](assets/s4.png)
+
 
 ### Usage
 
