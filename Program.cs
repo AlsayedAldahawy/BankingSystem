@@ -1,4 +1,5 @@
 using BankingSystem.Data;
+//using BankingSystem.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -14,8 +15,13 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("MyConnection")
     ));
 
+// Register the ApiService
+//builder.Services.AddHttpClient<ApiService>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
 
 var app = builder.Build();
 
@@ -44,6 +50,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "accounts", 
+    pattern: "accounts/{action=Index}/{id?}",
+    defaults: new { controller = "FrontAccounts" });
 
 app.MapControllerRoute(
     name: "default",

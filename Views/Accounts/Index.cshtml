@@ -1,58 +1,6 @@
-﻿@model IEnumerable<BankingSystem.Models.Account>
-
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
 @{
-    ViewData["Title"] = "Accounts";
 }
-
-<h2>Accounts</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Account Number</th>
-            <th>Account Holder Name</th>
-            <th>Balance</th>
-            <th>Account Type</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var account in Model)
-        {
-            <tr>
-                <td>@account.Id</td>
-                <td>@account.AccountNumber</td>
-                <td>@account.AccountHolderName</td>
-                <td>@account.Balance</td>
-                <td>@account.AccountType</td>
-                <td>
-                    <!-- Deposit Form -->
-                    <a href="@Url.Action("Deposit", "Accounts", new { accountId = account.Id })" class="btn btn-primary">Deposit</a> 
-                    <a href="@Url.Action("Withdraw", "Accounts", new { accountId = account.Id })" class="btn btn-warning">Withdraw</a> 
-                    <a href="@Url.Action("Transfer", "Accounts", new { accountId = account.Id })" class="btn btn-info">Transfer</a> 
-                    <form asp-action="DeleteAccount" asp-controller="Accounts" method="post" style="display:inline;"> 
-                        <input type="hidden" name="accountId" value="@account.Id" /> 
-                        <button type="submit" class="btn btn-danger">Delete</button> 
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<h2>Transfer Funds</h2>
-<form asp-action="Transfer" method="post">
-    <div class="form-group">
-        <label for="sourceAccountId">Source Account ID</label>
-        <input type="number" name="sourceAccountId" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label for="targetAccountId">Target Account ID</label>
-        <input type="number" name="targetAccountId" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label for="amount">Amount</label>
-        <input type="number" name="amount" class="form-control" step="0.01" required />
-    </div>
-    <button type="submit" class="btn btn-primary">Transfer</button>
-</form>
+<h1>hello</h1>

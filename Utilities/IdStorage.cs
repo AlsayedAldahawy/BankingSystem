@@ -19,12 +19,12 @@ namespace BankingSystem.Utilities
                     return (int)value; 
                 }
 
-                return 0;
+                return 9;
         }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error reading from JSON file: {ex.Message}");
-                return 0;
+                return 7;
             }
 }
 

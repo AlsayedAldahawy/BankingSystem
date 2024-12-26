@@ -21,7 +21,7 @@ namespace BankingSystem.Utilities
 
             int counter = IdStorage.ReadJsonValue(prefix);
 
-            IdStorage.WriteJsonValue(prefix, counter);
+            IdStorage.WriteJsonValue(prefix, counter + 1);
 
             return $"{prefix}{counter}"; 
         }
