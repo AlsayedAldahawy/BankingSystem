@@ -58,17 +58,19 @@ Here are some screenshots demonstrating the application:
 
 
 ### Usage
-** Note: 
-if the https Urls didn't work for any reason, please use http://localhost:5195 instead.
-- Navigate to `https://localhost:7095/` to access the Swagger Documentation.
-- Navigate to `https://localhost:7095/api/accounts` to access the Accounts API.
-- Navigate to `https://localhost:7095/api/transactions` to access the Transactions API.
+
+- Navigate to `http://localhost:5195/` to access the Swagger Documentation.
+- Navigate to `http://localhost:5195/api/accounts` to access the Accounts API.
+- Navigate to `http://localhost:5195/api/transactions` to access the Transactions API.
+
+** IMPORTANT NOTE: 
+if you are using https on Visual Studio, please use https://localhost:7095/ instead.
 
 ### Example API Requests
 
 #### Deposit
 ```bash
-curl -X POST https://localhost:7095/api/accounts/deposit \
+curl -X POST http://localhost:5195/api/accounts/deposit \
     -H "Content-Type: application/json" \
     -d '{   
         "accountId": 123,
@@ -88,8 +90,7 @@ curl -X POST https://localhost:7095/api/accounts/deposit \
 ├─ Controllers
 │  ├─ AccountsController.cs
 │  ├─ HomeController.cs
-│  ├─ TransactionsController.cs
-│  └─ accounts.cs
+│  └─ TransactionsController.cs
 ├─ Data
 │  └─ AppDbContext.cs
 ├─ Dtos
@@ -113,8 +114,6 @@ curl -X POST https://localhost:7095/api/accounts/deposit \
 │  ├─ TransactionIdGenerator.cs
 │  └─ savedData.json
 ├─ Views
-│  ├─ Accounts
-│  │  └─ Index.cshtml
 │  ├─ Home
 │  │  └─ Index.cshtml
 │  ├─ Shared
