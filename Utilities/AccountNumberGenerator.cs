@@ -2,11 +2,16 @@
 {
     public class AccountNumberGenerator
     {
-        private static int counter = 1000; // A counter to ensure uniqueness
         
-        public static string GenerateAccountNumber(string accountType) { 
-            string prefix = accountType == "CheckingAccount" ? "CHK" : "SAV"; 
-            return $"{prefix}-{counter++}"; 
+        public static string GenerateAccountNumber(string accountType) {
+
+            string prefix = accountType == "CheckingAccount" ? "CHK" : "SAV";
+
+            int counter = IdStorage.ReadJsonValue(prefix);
+
+            IdStorage.WriteJsonValue(prefix, counter + 1);
+
+            return $"{prefix}-{counter}"; 
         }
     }
 }

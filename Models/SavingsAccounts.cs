@@ -1,14 +1,12 @@
-﻿using BankingSystem.Utilities;
+﻿using System.ComponentModel.DataAnnotations;
+using BankingSystem.Utilities;
 
 namespace BankingSystem.Models
 {
     public class SavingsAccount : Account
     {
-        public SavingsAccount()
-        {
-            AccountType = "Savings Account";
-            AccountNumber = AccountNumberGenerator.GenerateAccountNumber(AccountType);
-        }
+        [MaxLength(100)]
+
         public decimal InterestRate { get; set; }
     }
 }
