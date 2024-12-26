@@ -28,21 +28,40 @@ namespace BankingSystem.Controllers
         public async Task<IActionResult> GetAllAsync()
         {
             var accounts = await _context.Accounts.OrderBy(a => a.Id).ToListAsync();
-
-            return Ok(accounts);
+            var detailedAccounts = accounts.Select(a => new
+            {
+                a.Id,
+                a.AccountNumber,
+                a.Balance,
+                a.AccountType,
+                AccountHolderName = (a is CheckingAccount ca) ? ca.AccountHolderName : ((SavingsAccount)a).AccountHolderName,
+                OverdraftLimit = a is CheckingAccount ? ((CheckingAccount)a).OverdraftLimit : (decimal?)null,
+                InterestRate = a is SavingsAccount ? ((SavingsAccount)a).InterestRate : (decimal?)null
+            })
+                .ToList(); return Ok(detailedAccounts);
         }
 
         //* GET GetByIdAsync
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
-            var account = await _context.Accounts
-                .SingleOrDefaultAsync(a => a.Id == id);
-
+            var account = await _context.Accounts.SingleOrDefaultAsync(a => a.Id == id);
             if (account == null)
-                return NotFound($"No Account with Number: {id}");
-
-            return Ok(account);
+            {
+                return NotFound($"No Account with ID: {id}");
+            }
+            var detailedAccount = new
+            {
+                account.Id,
+                account.AccountNumber,
+                account.Balance,
+                account.AccountType,
+                AccountHolderName = (account is CheckingAccount ca) ? ca.AccountHolderName : ((SavingsAccount)account).AccountHolderName,
+                OverdraftLimit = account is CheckingAccount ? ((CheckingAccount)account).OverdraftLimit : (decimal?)null,
+                InterestRate = account is SavingsAccount ? ((SavingsAccount)account).InterestRate : (decimal?)null
+            }; 
+            
+            return Ok(detailedAccount);
         }
 
         // * GET api/accounts?getByType=AccountType -- GetByTypeasync
@@ -121,7 +140,7 @@ namespace BankingSystem.Controllers
         }
 
         //Deposit money into an account
-       [HttpPost("deposit")]
+        [HttpPost("deposit")]
         public async Task<IActionResult> Deposit([FromBody] DepositDTO dto)
         {
             if (dto.Amount < 0)
@@ -136,7 +155,7 @@ namespace BankingSystem.Controllers
 
             _context.Transactions.Add(new Deposit
             {
-                TransCode= TransactionIdGenerator.GenerateTransactionId("Deposit"),
+                TransCode = TransactionIdGenerator.GenerateTransactionId("Deposit"),
                 AccountId = dto.AccountId,
                 Amount = dto.Amount,
                 TransactionType = "Deposit",
@@ -144,7 +163,7 @@ namespace BankingSystem.Controllers
             }
             );
 
-            await _context.SaveChangesAsync(); 
+            await _context.SaveChangesAsync();
             return Ok(account);
         }
 
@@ -164,12 +183,14 @@ namespace BankingSystem.Controllers
                 if (account.AccountType == "Savings Account")
                     return BadRequest("No Enough Balance");
 
-                if (account.AccountType == "Checking Account") { 
-                    var checkingAccount = account as CheckingAccount; 
-                    if (checkingAccount == null) 
-                        return BadRequest("Failed Process: Account type mismatch."); 
-                    if (dto.Amount - account.Balance > checkingAccount.OverdraftLimit) 
-                        return BadRequest("Failed Process: Withdraw amount exceeds Overdraft limit."); }
+                if (account.AccountType == "Checking Account")
+                {
+                    var checkingAccount = account as CheckingAccount;
+                    if (checkingAccount == null)
+                        return BadRequest("Failed Process: Account type mismatch.");
+                    if (dto.Amount - account.Balance > checkingAccount.OverdraftLimit)
+                        return BadRequest("Failed Process: Withdraw amount exceeds Overdraft limit.");
+                }
             }
 
             account.Balance -= dto.Amount;
