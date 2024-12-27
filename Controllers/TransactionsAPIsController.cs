@@ -5,7 +5,6 @@ using BankingSystem.Models;
 using BankingSystem.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 
 
 /**
@@ -34,7 +33,6 @@ namespace BankingSystem.Controllers
         public async Task<IActionResult> GetAllAsync()
         {
             var transactions = await _context.Transactions.OrderBy(g => g.Timestamp).ToListAsync();
-
             return Ok(transactions);
         }
 
@@ -47,8 +45,20 @@ namespace BankingSystem.Controllers
                 .SingleOrDefaultAsync(t => t.Id == id); 
 
             if (transaction == null) 
-                return NotFound($"There's no Transaction with id: {id}"); 
+                return NotFound($"There's no Transaction with id: {id}");
 
+            if (transaction.TransactionType != "Transfer")
+            {
+                return Ok(new DepositDto
+                {
+                    Id = transaction.Id,
+                    TransactionType = transaction.TransactionType,
+                    Amount = transaction.Amount,
+                    AccountId = transaction.AccountId,
+                    Timestamp = transaction.Timestamp,
+                    TransCode = transaction.TransCode,
+                });
+            }
             return Ok(transaction);
         }
 
