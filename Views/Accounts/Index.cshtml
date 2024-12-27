@@ -7,7 +7,7 @@
     ViewData["Title"] = "Accounts";
 }
 
-<h2>Transactions</h2>
+<h2>Accounts</h2>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -22,18 +22,18 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var transaction in Model)
+        @foreach (var Account in Model)
         {
             <tr>
-                <td>@transaction.Id</td>
-                <td>@transaction.AccountHolderName</td>
-                <td>@transaction.AccountNumber</td>
-                <td>@transaction.Balance</td>
-                <td>@transaction.AccountType</td>
-                <td>@transaction.OverdraftLimit</td>
-                <td>@transaction.InterestRate</td>
+                <td>@Account.Id</td>
+                <td>@Account.AccountHolderName</td>
+                <td>@Account.AccountNumber</td>
+                <td>@Account.Balance</td>
+                <td>@Account.AccountType</td>
+                <td>@Account.OverdraftLimit</td>
+                <td>@Account.InterestRate</td>
                 <td>
-                    <form asp-action="Delete" asp-route-id="@transaction.Id" method="post">
+                    <form asp-action="Delete" asp-route-id="@Account.Id" method="post">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>

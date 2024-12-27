@@ -1,53 +1,44 @@
-@model IEnumerable<BankingSystem.Models.Transaction>
+<div class="alert alert-warning">
+    <strong>Note:</strong> The backend side is complete, but this frontend page is currently under construction. Some features may not be fully functional. You can test the APIs functionality using <strong>Swagger</strong> in <strong>Home</strong> Page.
+</div>
 
+@model IEnumerable<TransactionViewModel>
 @{
     ViewData["Title"] = "Transactions";
 }
 
 <h2>Transactions</h2>
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccountId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            
-            <th>
-                @Html.DisplayNameFor(model => model.Timestamp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TransactionType)
-            </th>
+            <th>ID</th>
+            <th>Trans Code</th>
+            <th>Account ID</th>
+            <th>Transaction Type</th>
+            <th>Amount</th>
+            <th>Timestamp</th>
+            <th>Reciever Account ID</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
+        @foreach (var transaction in Model)
+        {
+            <tr>
+                <td>@transaction.Id</td>
+                <td>@transaction.TransCode</td>
+                <td>@transaction.AccountId</td>
+                <td>@transaction.TransactionType</td>
+                <td>@transaction.Amount</td>
+                <td>@transaction.Timestamp</td>
+                <td>@transaction.RecieverAccountId</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AccountId)
+                    <form asp-action="Delete" asp-route-id="@transaction.Id" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Timestamp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransactionType)
-            </td>
-        </tr>
-    }
+            </tr>
+        }
     </tbody>
 </table>
