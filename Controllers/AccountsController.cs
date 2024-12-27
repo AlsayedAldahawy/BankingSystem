@@ -29,6 +29,14 @@ namespace BankingSystem.Controllers
             var response = await _httpClient.DeleteAsync($"http://localhost:5195/api/accounts/delete/{id}");
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var response = await _httpClient.GetStringAsync($"http://localhost:5195/api/accounts/{id}");
+            var account = JsonConvert.DeserializeObject<AccountViewModel>(response);
+            return View(account);
+        }
+
     }
 
 }

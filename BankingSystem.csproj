@@ -30,6 +30,7 @@
   <ItemGroup>
     <Folder Include="assets\" />
     <Folder Include="Services\" />
+    <Folder Include="Views\NewFolder\" />
   </ItemGroup>
 
 </Project>
