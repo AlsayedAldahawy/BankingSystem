@@ -19,7 +19,6 @@ namespace BankingSystem.Controllers
         public async Task<IActionResult> Index()
         {
             var response = await _httpClient.GetStringAsync("http://localhost:5195/api/transactions");
-
             var transactions = JsonConvert.DeserializeObject<List<TransactionViewModel>>(response);
             return View(transactions);
         }

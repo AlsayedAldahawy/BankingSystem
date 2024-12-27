@@ -2,24 +2,18 @@
 
 namespace BankingSystem.Dtos
 {
-    public abstract class TransactionDto
+    public class TransactionDto
     {
-        public int Id { get; set; }
-        public string? TransCode { get; set; }
-        public int AccountId { get; set; }
-        public string? TransactionType { get; set; }
-        public decimal Amount { get; set; }
-        public DateTime Timestamp { get; set; }
-    }
+        public int SenderAccountId { get; set; }
 
-    public class TransferDto : TransactionDto
-    {
+        // ID of the account recieving the transaction
         public int RecieverAccountId { get; set; }
 
+        // Transaction type (e.g., withdrawal, deposit, transfer)
+        [MaxLength(250)]
+        public required string TransactionType { get; set; }
+
+        // Amount involved in the transaction
+        public decimal Amount { get; set; }
     }
-
-    public class DepositDto : TransactionDto { }
-    public class WithdrawDto : TransactionDto { }
-
-
 }

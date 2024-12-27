@@ -38,8 +38,7 @@ namespace BankingSystem.Controllers
                 OverdraftLimit = a is CheckingAccount ? ((CheckingAccount)a).OverdraftLimit : (decimal?)null,
                 InterestRate = a is SavingsAccount ? ((SavingsAccount)a).InterestRate : (decimal?)null
             })
-                .ToList(); 
-            return Ok(detailedAccounts);
+                .ToList(); return Ok(detailedAccounts);
         }
 
         //* GET GetByIdAsync
@@ -142,7 +141,7 @@ namespace BankingSystem.Controllers
 
         //Deposit money into an account
         [HttpPut("deposit")]
-        public async Task<IActionResult> Deposit([FromBody]  DepositDto dto)
+        public async Task<IActionResult> Deposit([FromBody] DepositDTO dto)
         {
             if (dto.Amount < 0)
                 return BadRequest("Ammount of Money can't be negative");
@@ -170,7 +169,7 @@ namespace BankingSystem.Controllers
 
         //Withdraw money from an account
         [HttpPut("withdraw")]
-        public async Task<IActionResult> Withdraw([FromBody] WithdrawDto dto)
+        public async Task<IActionResult> Withdraw([FromBody] DepositDTO dto)
         {
             if (dto.Amount < 0)
                 return BadRequest("Ammount of Money can't be negative");

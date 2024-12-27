@@ -21,15 +21,20 @@ namespace BankingSystem.Models
         
         // Timestamp of the transaction
         public DateTime Timestamp { get; set; }
-        public int? RecieverAccountId { get; set; }
-
 
     }
 
-    public class Transfer : Transaction { }
-    public class Deposit : Transaction { }
-    public class Withdraw : Transaction { }
+    public class Transfer : Transaction
+    {
 
+        // ID of the account recieving the transaction
+        public int RecieverAccountId { get; set; }
+
+    }
+
+    public class Deposit : Transaction { }
+
+    public class Withdraw : Transaction { }
 
 }
 
