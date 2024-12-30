@@ -93,3 +93,8 @@ h2.text-white {
     background-color: #dc3545 !important;
     border-color: #dc3545 !important;
 }
+
+.add-button{
+    margin: 5px;
+    margin-left : 0;
+}

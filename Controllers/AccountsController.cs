@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using BankingSystem.Models;
+using System.Text;
 
 namespace BankingSystem.Controllers
 {
@@ -16,6 +17,8 @@ namespace BankingSystem.Controllers
             _httpClient = httpClient;
         }
 
+        // GET: /Accounts
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var response = await _httpClient.GetStringAsync("http://localhost:5195/api/accounts");
@@ -24,19 +27,21 @@ namespace BankingSystem.Controllers
         }
 
         [HttpPost]
+        [Route("Accounts/Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _httpClient.DeleteAsync($"http://localhost:5195/api/accounts/delete/{id}");
             return RedirectToAction("Index");
         }
 
+        // GET: /Accounts/Details/5
+        [HttpGet]
+        [Route("Accounts/Details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
             var response = await _httpClient.GetStringAsync($"http://localhost:5195/api/accounts/{id}");
             var account = JsonConvert.DeserializeObject<AccountViewModel>(response);
             return View(account);
         }
-
     }
-
 }

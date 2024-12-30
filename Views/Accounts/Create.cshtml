@@ -1,0 +1,43 @@
+﻿@model AccountViewModel
+@{
+    ViewData["Title"] = "Add New Account";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-white">Add New Account</h2>
+
+    <div class="card bg-dark text-white">
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                <div class="form-group">
+                    <label for="AccountHolderName">Account Holder Name</label>
+                    <input type="text" class="form-control" id="AccountHolderName" name="AccountHolderName" required>
+                </div>
+                <div class="form-group">
+                    <label for="AccountNumber">Account Number</label>
+                    <input type="text" class="form-control" id="AccountNumber" name="AccountNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="Balance">Balance</label>
+                    <input type="number" class="form-control" id="Balance" name="Balance" required>
+                </div>
+                <div class="form-group">
+                    <label for="AccountType">Account Type</label>
+                    <select class="form-control" id="AccountType" name="AccountType" required>
+                        <option value="Checking Account">Checking Account</option>
+                        <option value="Savings Account">Savings Account</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="OverdraftLimit">Overdraft Limit (for Checking Accounts)</label>
+                    <input type="number" class="form-control" id="OverdraftLimit" name="OverdraftLimit">
+                </div>
+                <div class="form-group">
+                    <label for="InterestRate">Interest Rate (for Savings Accounts)</label>
+                    <input type="number" class="form-control" id="InterestRate" name="InterestRate" step="0.01">
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

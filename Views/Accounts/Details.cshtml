@@ -1,5 +1,4 @@
-﻿
-@model AccountViewModel
+﻿@model AccountViewModel
 @{
     ViewData["Title"] = "Account Details";
 }
@@ -8,40 +7,70 @@
 </div>
 <div class="container mt-4">
     <h2 class="text-center text-white">Account Details</h2>
+    <div class="row">
+        <!-- Account Information -->
+        <div class="col-md-4">
+            <div class="card bg-dark text-white mb-4">
+                <div class="card-header">
+                    <h4>Account Information</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">ID</dt>
+                        <dd class="col-sm-8">@Model.Id</dd>
 
-    <div class="card bg-dark text-white mb-4">
-        <div class="card-header">
-            <h4>Account Information</h4>
+                        <dt class="col-sm-4">Number</dt>
+                        <dd class="col-sm-8">@Model.AccountNumber</dd>
+
+                        <dt class="col-sm-4">Name</dt>
+                        <dd class="col-sm-8">@Model.AccountHolderName</dd>
+
+                        <dt class="col-sm-4">Balance</dt>
+                        <dd class="col-sm-8">@Model.Balance</dd>
+
+                        <dt class="col-sm-4">Type</dt>
+                        <dd class="col-sm-8">@Model.AccountType</dd>
+
+                        @if (Model.AccountType == "Checking Account")
+                        {
+                            <dt class="col-sm-4">Overdraft</dt>
+                            <dd class="col-sm-8">@Model.OverdraftLimit</dd>
+                        }
+
+                        @if (Model.AccountType == "Savings Account")
+                        {
+                            <dt class="col-sm-4">Interest Rate</dt>
+                            <dd class="col-sm-8">@Model.InterestRate</dd>
+                        }
+                    </dl>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <dl class="row">
-                <dt class="col-sm-3">ID</dt>
-                <dd class="col-sm-9">@Model.Id</dd>
 
-                <dt class="col-sm-3">Account Number</dt>
-                <dd class="col-sm-9">@Model.AccountNumber</dd>
-
-                <dt class="col-sm-3">Account Holder Name</dt>
-                <dd class="col-sm-9">@Model.AccountHolderName</dd>
-
-                <dt class="col-sm-3">Balance</dt>
-                <dd class="col-sm-9">@Model.Balance</dd>
-
-                <dt class="col-sm-3">Account Type</dt>
-                <dd class="col-sm-9">@Model.AccountType</dd>
-
-                @if (Model.AccountType == "Checking")
-                {
-                    <dt class="col-sm-3">Overdraft Limit</dt>
-                    <dd class="col-sm-9">@Model.OverdraftLimit</dd>
-                }
-
-                @if (Model.AccountType == "Savings")
-                {
-                    <dt class="col-sm-3">Interest Rate</dt>
-                    <dd class="col-sm-9">@Model.InterestRate</dd>
-                }
-            </dl>
+        <!-- Transactions Section -->
+        <div class="col-md-8">
+            <div class="card bg-dark text-white mb-4">
+                <div class="card-header">
+                    <h4>Recent Transactions</h4>
+                </div>
+                <div class="card-body" style="padding:0">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsList">
+                            <tr>
+                                <td colspan="4">Loading transactions...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -75,9 +104,34 @@
 </div>
 
 <script>
-
     const deleteConfirm = () => {
         return confirm('Are you sure you want to delete this account?');
     }
 
+    document.addEventListener('DOMContentLoaded', async function () {
+        const accountId = '@Model.Id';
+        const transactionsList = document.getElementById('transactionsList');
+
+        try {
+            const response = await fetch(`https://localhost:7095/api/transactions/GetByAccountId?accountId=${accountId}`);
+            if (response.ok) {
+                const transactions = await response.json();
+                let transactionsHtml = '';
+                transactions.slice(0, 4).forEach(transaction => {
+                    transactionsHtml += `<tr>
+                        <td>${transaction.transCode}</td>
+                        <td>${transaction.transactionType}</td>
+                        <td>${transaction.amount}</td>
+                        <td>${transaction.timestamp}</td>
+                    </tr>`;
+                });
+                transactionsList.innerHTML = transactionsHtml;
+            } else {
+                transactionsList.innerHTML = '<tr><td colspan="4">Failed to load transactions.</td></tr>';
+            }
+        } catch (error) {
+            console.error('Error fetching transactions:', error);
+            transactionsList.innerHTML = '<tr><td colspan="4">Error loading transactions.</td></tr>';
+        }
+    });
 </script>

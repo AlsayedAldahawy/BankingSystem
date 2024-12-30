@@ -23,21 +23,99 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var Account in Model)
+            @foreach (var account in Model)
             {
                 <tr>
-                    <td>@Account.Id</td>
-                    <td>@Account.AccountHolderName</td>
-                    <td>@Account.AccountNumber</td>
-                    <td>@Account.Balance</td>
-                    <td>@Account.AccountType</td>
-                    <td>@(Account.OverdraftLimit.HasValue ? Account.OverdraftLimit.Value : "-")</td>
-                    <td>@(Account.InterestRate.HasValue ? Account.InterestRate.Value : "-")</td>
+                    <td>@account.Id</td>
+                    <td>@account.AccountHolderName</td>
+                    <td>@account.AccountNumber</td>
+                    <td>@account.Balance</td>
+                    <td>@account.AccountType</td>
+                    <td>@account.OverdraftLimit</td>
+                    <td>@account.InterestRate</td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@Account.Id" class="btn btn-info">Details</a>
+                        <a asp-action="Details" asp-route-id="@account.Id" class="btn btn-info">Details</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAccountModal">
+        Add New Account
+    </button>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="addAccountModal" tabindex="-1" aria-labelledby="addAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAccountModalLabel">Add New Account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createAccountForm">
+                    <div class="form-group">
+                        <label for="AccountHolderName">Account Holder Name</label>
+                        <input type="text" class="form-control" id="AccountHolderName" name="AccountHolderName" required>
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="Balance">Balance</label>
+                        <input type="number" class="form-control" id="Balance" name="Balance" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="AccountType">Account Type</label>
+                        <select class="form-control" id="AccountType" name="AccountType" required>
+                            <option value="Checking Account">Checking Account</option>
+                            <option value="Savings Account">Savings Account</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="OverdraftLimit">Overdraft Limit (for Checking Accounts)</label>
+                        <input type="number" class="form-control" id="OverdraftLimit" name="OverdraftLimit">
+                    </div>
+                    <div class="form-group">
+                        <label for="InterestRate">Interest Rate (for Savings Accounts)</label>
+                        <input type="number" class="form-control" id="InterestRate" name="InterestRate" step="0.01">
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    const fullUrl = window.location.href;
+    const url = new URL(fullUrl); 
+    const baseUrl = `${url.protocol}//${url.host}`;
+
+    console.log(baseUrl);
+
+    document.getElementById('createAccountForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+
+        try {
+            const response = await fetch(`${baseUrl}/api/accounts`, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('Account created successfully!');
+                window.location.href = '/Accounts/Index';
+            } else {
+                const errorText = await response.text();
+                alert(`Error: ${errorText}`);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while creating the account.');
+        }
+    });
+</script>
